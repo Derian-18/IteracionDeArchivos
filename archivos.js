@@ -105,29 +105,75 @@ function procesarDatos(contenido) {
     escribirResultados(lista, mayusculas, ordenados, total);
 }
 
+limite = 2
+// La nueva funcion para buscar un nombre
+function buscarNombre() {
+    
+    if(limite <= 0){
+        console.log("Ya se ejecuto dos veces para la prueba");
+        rl.close();
+        return;
+    }
+
+    rl.question("\nIngrese el nombre a buscar: ", (busqueda) => {
+
+        busqueda = busqueda.trim();
+
+        // Leer archivo
+        const contenido = fs.readFileSync(archivoDatos, 'utf8');
+
+        if (contenido.trim() === "") {
+            console.log("El archivo está vacío");
+            rl.close();
+            return;
+        }
+
+        const lista = contenido.split('\n');
+
+        let contador = 0;
+
+        // Iterar y contar coincidencias
+        lista.forEach(nombre => {
+            if (nombre.toLowerCase() === busqueda.toLowerCase()) {
+                contador++;
+            }
+        });
+
+        // Mostrar resultados
+        if (contador > 0) {
+            console.log(`El nombre "${busqueda}" fue encontrado ${contador} vez/veces.`);
+        } else {
+            console.log(`El nombre "${busqueda}" NO fue encontrado.`);
+        }
+
+        limite--;
+        buscarNombre();
+    });
+}
+
 // Resultados
 
 function escribirResultados(original, mayusculas, ordenados, total) {
 
     const texto = `
-LISTA ORIGINAL
-${original.join('\n')}
+    LISTA ORIGINAL
+    ${original.join('\n')}
 
-LISTA EN MAYÚSCULAS
-${mayusculas.join('\n')}
+    LISTA EN MAYÚSCULAS
+    ${mayusculas.join('\n')}
 
-LISTA ORDENADA
-${ordenados.join('\n')}
+    LISTA ORDENADA
+    ${ordenados.join('\n')}
 
-TOTAL DE NOMBRES
-${total}
-`;
+    TOTAL DE NOMBRES
+    ${total}
+    `;
 
     fs.writeFileSync(archivoResultado, texto);
 
     console.log("\nArchivo resultado.txt generado.");
 
-    rl.close();
+    buscarNombre();
 }
 
 // Iniciar programa

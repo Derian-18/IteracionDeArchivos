@@ -1,0 +1,25 @@
+
+    LISTA ORIGINAL
+    Derian
+Omar
+Ivonne
+Sergio
+Laura
+
+    LISTA EN MAYÚSCULAS
+    DERIAN
+OMAR
+IVONNE
+SERGIO
+LAURA
+
+    LISTA ORDENADA
+    Derian
+Ivonne
+Laura
+Omar
+Sergio
+
+    TOTAL DE NOMBRES
+    5
+    
